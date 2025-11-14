@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Patrick Batman — Resume</title>
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#07060b; /* almost black */
+      --panel:#0f1116; /* dark panel */
+      --accent:#f2c94c; /* bat-yellow */
+      --muted:#9aa3b2;
+      --glass: rgba(255,255,255,0.04);
+      --glow: 0 8px 40px rgba(242,201,76,0.08);
+      --card-radius:18px;
+      font-family: 'Rubik', system-ui, -apple-system, sans-serif;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;background: radial-gradient(1200px 600px at 10% 10%, rgba(242,201,76,0.02), transparent 6%), radial-gradient(800px 400px at 90% 90%, rgba(255,255,255,0.02), transparent 6%), var(--bg); color:#dfe7ef}
+
+    /* animated smoky stripes */
+    .sky{position:fixed;inset:0;pointer-events:none;overflow:hidden}
+    .stripe{position:absolute;left:-30%;width:160%;height:140%;transform:rotate(-10deg);opacity:0.03;background:linear-gradient(90deg,transparent,#f2c94c,transparent);filter:blur(20px);animation:slide 18s linear infinite}
+    .stripe.s2{top:-30%;animation-duration:26s;opacity:0.02}
+    .stripe.s3{top:10%;animation-duration:34s;opacity:0.015}
+    @keyframes slide{0%{transform:translateX(-30%) rotate(-10deg)}50%{transform:translateX(30%) rotate(-10deg)}100%{transform:translateX(-30%) rotate(-10deg)}}
+
+    .wrapper{max-width:980px;margin:48px auto;padding:28px;display:grid;grid-template-columns:300px 1fr;gap:28px}
+
+    /* Left column card */
+    .card{
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-radius:var(--card-radius);padding:20px;backdrop-filter: blur(6px);box-shadow:var(--glow);
+      border:1px solid rgba(255,255,255,0.03);
+      position:relative;overflow:hidden
+    }
+
+    /* floating bat emblem */
+    .bat-emblem{position:absolute;right:-40px;top:-40px;opacity:0.06;transform:rotate(8deg);width:260px}
+
+    .avatar{display:flex;align-items:center;gap:16px}
+    .avatar img{width:84px;height:84px;border-radius:14px;object-fit:cover;border:2px solid rgba(242,201,76,0.15);box-shadow:0 6px 20px rgba(0,0,0,0.6)}
+    .name{font-size:20px;font-weight:700;letter-spacing:0.6px}
+    .title{font-size:12px;color:var(--muted);margin-top:4px}
+
+    .tag{display:inline-block;margin-top:12px;padding:6px 10px;border-radius:999px;background:linear-gradient(90deg, rgba(242,201,76,0.14), rgba(242,201,76,0.06));font-weight:600;color:var(--accent);font-size:12px}
+
+    h2{margin:18px 0 8px;font-size:18px;color:#fff}
+    p.lead{color:var(--muted);line-height:1.4}
+
+    ul.skills{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:1fr;gap:8px}
+    ul.skills li{background:linear-gradient(90deg, rgba(255,255,255,0.01), rgba(255,255,255,0.02));padding:8px 12px;border-radius:10px;border:1px solid rgba(255,255,255,0.02)}
+
+    /* right column */
+    .main{padding:20px;border-radius:var(--card-radius);background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005));border:1px solid rgba(255,255,255,0.03);box-shadow:var(--glow);position:relative}
+
+    /* animated header */
+    .headline{display:flex;align-items:center;gap:18px}
+    .headline .bat-logo{width:56px;height:56px;background:linear-gradient(180deg,#0b0b0f,#17171d);display:grid;place-items:center;border-radius:12px;border:1px solid rgba(255,255,255,0.04);box-shadow:0 6px 24px rgba(0,0,0,0.6)}
+    .headline h1{margin:0;font-size:26px}
+    .sub{color:var(--muted);font-weight:500}
+
+    /* typing effect */
+    .type{display:inline-block;color:var(--accent);font-weight:700}
+    .cursor{display:inline-block;background:var(--accent);width:8px;height:18px;margin-left:6px;vertical-align:middle;animation:blink 1s steps(2) infinite}
+    @keyframes blink{50%{opacity:0}}
+
+    /* experience list */
+    .exp{margin-top:14px}
+    .exp-item{padding:12px;border-radius:12px;margin-bottom:12px;border:1px solid rgba(255,255,255,0.02);background:linear-gradient(180deg, rgba(255,255,255,0.01), transparent)}
+    .exp-item h4{margin:0}
+    .meta{color:var(--muted);font-size:13px;margin-top:6px}
+
+    /* achievements */
+    .ach-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:12px}
+    .ach{padding:12px;border-radius:10px;background:linear-gradient(90deg, rgba(242,201,76,0.06), rgba(255,255,255,0.01));text-align:center;font-weight:600;color:var(--accent)}
+
+    footer{margin-top:18px;color:var(--muted);font-size:13px}
+
+    /* responsive */
+    @media (max-width:880px){
+      .wrapper{grid-template-columns:1fr;max-width:720px;padding:18px}
+      .bat-emblem{display:none}
+    }
+
+    /* subtle hover interactions */
+    .card:hover,.main:hover{transform:translateY(-6px);transition:all 350ms cubic-bezier(.2,.9,.2,1)}
+
+    /* animated skill bars */
+    .skill-bar{height:10px;background:linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:999px;margin-top:8px;overflow:hidden}
+    .skill-bar .fill{height:100%;width:0%;border-radius:999px;background:linear-gradient(90deg,var(--accent),#ffd776);box-shadow:0 6px 18px rgba(242,201,76,0.12);animation:fill 1.6s ease forwards}
+    @keyframes fill{to{width:var(--w)}}
+
+    /* subtle floating badge */
+    .floating-badge{position:absolute;left:18px;bottom:18px;padding:8px 12px;border-radius:10px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));font-weight:600;color:var(--accent);border:1px solid rgba(255,255,255,0.03)}
+
+  </style>
+</head>
+<body>
+
+  <div class="sky" aria-hidden="true">
+    <div class="stripe s1" style="top:-10%"></div>
+    <div class="stripe s2" style="top:20%"></div>
+    <div class="stripe s3" style="top:60%"></div>
+  </div>
+
+  <div class="wrapper">
+
+    <aside class="card" aria-label="Profile card">
+      <!-- soft bat emblem -->
+      <svg class="bat-emblem" viewBox="0 0 512 512" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+        <g fill="none" stroke="none">
+        <path d="M256 48c-44 0-86 13-120 36-34 24-56 59-72 96C62 245 64 304 104 352c22 28 51 50 86 62 40 14 84 14 124 0 35-12 64-34 86-62 40-48 42-107 40-170-16-37-38-72-72-96C342 61 300 48 256 48z" fill="#f2c94c" opacity="0.06"/>
+        </g>
+      </svg>
+
+      <div class="avatar">
+        <img src="https://tse1.mm.bing.net/th/id/OIP.4GSMSLO41PiLz88uijT7_gHaHa?pid=Api&P=0&h=180" alt="Patrick Batman">
+        <div>
+          <div class="name">PATRICK BATMAN</div>
+          <div class="title">King of Gotham City • Vigilante</div>
+          <div class="tag">World's Greatest Detective</div>
+        </div>
+      </div>
+
+      <h2>About</h2>
+      <p class="lead">Highly disciplined and strategic vigilante. Expertise in advanced combat, detective work and high-tech operations. Dedicated to protecting Gotham using intelligence, innovation and leadership.</p>
+
+      <h2>Skills</h2>
+      <ul class="skills">
+        <li>Expert Detective Skills — Forensic analysis, profiling</li>
+        <li>Master Martial Artist — 127+ styles</li>
+        <li>High-level Strategic Planning & Leadership</li>
+        <li>Tech & Gadget Development</li>
+      </ul>
+
+      <div class="floating-badge">Active — Night Ops</div>
+
+    </aside>
+
+    <main class="main" role="main">
+
+      <div class="headline">
+        <div class="bat-logo" aria-hidden="true">
+          <!-- small bat svg -->
+          <svg width="34" height="34" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M12 2C10 4 8 4 6 5C4 6 2 8 2 10C2 12 4 12 6 12C8 12 10 10 12 10C14 10 16 12 18 12C20 12 22 12 22 10C22 8 20 6 18 5C16 4 14 4 12 2Z" fill="#f2c94c"/>
+          </svg>
+        </div>
+
+        <div>
+          <h1>PATRICK BATMAN</h1>
+          <div class="sub">A man who made his own legacy — <span class="type" id="typed"></span><span class="cursor" aria-hidden="true"></span></div>
+        </div>
+      </div>
+
+      <section class="exp" aria-label="Experience">
+        <div class="exp-item">
+          <h4>Gotham City — Lead Vigilante</h4>
+          <div class="meta">15+ years • Covert coordination with Gotham Police • Bat-Family leadership</div>
+          <p style="margin-top:8px;color:var(--muted)">Reduced city-wide crime using strategic patrols and intelligence gathering. Built and supervised the Bat-Family and developed advanced gadgets & vehicles.</p>
+        </div>
+
+        <div class="exp-item">
+          <h4>High-Level Threat Response</h4>
+          <div class="meta">Operations against Joker, Bane, Riddler, etc.</div>
+          <p style="margin-top:8px;color:var(--muted)">Led successful missions and coordinated high-tech takedowns to restore security.</p>
+        </div>
+      </section>
+
+      <h2>Achievements</h2>
+      <div class="ach-grid">
+        <div class="ach">Saved Gotham City</div>
+        <div class="ach">World's Greatest Detective</div>
+        <div class="ach">Built advanced tech systems</div>
+      </div>
+
+      <h2 style="margin-top:18px">Interests</h2>
+      <ul style="margin-top:8px;color:var(--muted)">
+        <li>Tactical combat training</li>
+        <li>Tech innovation & gadget development</li>
+        <li>Solving complex mysteries</li>
+        <li>Protecting Gotham City</li>
+      </ul>
+
+      <h2 style="margin-top:18px">Skills Breakdown</h2>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:10px">
+        <div>
+          <div style="font-weight:700">Detective Work</div>
+          <div class="skill-bar" style="--w:95%"><div class="fill" style="--w:95%"></div></div>
+        </div>
+        <div>
+          <div style="font-weight:700">Combat</div>
+          <div class="skill-bar" style="--w:92%"><div class="fill" style="--w:92%"></div></div>
+        </div>
+        <div>
+          <div style="font-weight:700">Tech & Gadgets</div>
+          <div class="skill-bar" style="--w:88%"><div class="fill" style="--w:88%"></div></div>
+        </div>
+        <div>
+          <div style="font-weight:700">Leadership</div>
+          <div class="skill-bar" style="--w:90%"><div class="fill" style="--w:90%"></div></div>
+        </div>
+      </div>
+
+      <footer>Contact: gotham@wayne-enterprises.test • Availability: Night-time operations</footer>
+    </main>
+
+  </div>
+
+  <script>
+    // Simple typed effect (no libraries)
+    (function(){
+      const phrases = [
+        'Strategist',
+        'Detective',
+        'Engineer',
+        'Guardian of Gotham'
+      ];
+      const el = document.getElementById('typed');
+      let pi = 0, ci = 0, forward = true;
+
+      function tick(){
+        const text = phrases[pi];
+        if(forward){
+          ci++;
+          el.textContent = text.slice(0,ci);
+          if(ci===text.length){ forward=false; setTimeout(tick,900); return }
+        } else {
+          ci--;
+          el.textContent = text.slice(0,ci);
+          if(ci===0){ forward=true; pi=(pi+1)%phrases.length }
+        }
+        setTimeout(tick, forward?90:40);
+      }
+      tick();
+
+      // animate skill fills on load
+      window.addEventListener('load', ()=>{
+        document.querySelectorAll('.skill-bar .fill').forEach(el=>{
+          const w = getComputedStyle(el).getPropertyValue('--w') || '90%';
+          el.style.width = w;
+        })
+      })
+    })();
+  </script>
+
+</body>
+</html>
